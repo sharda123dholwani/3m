@@ -14,7 +14,7 @@ class LocalStorage {
       _prefs = prefs;
     });
   }
-/////////////
+/////////////////
   clearPref(){
     _prefs?.clear();
   }
