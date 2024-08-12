@@ -8,7 +8,6 @@ on:
 name: iOS-ipa-build
 
 
-
 jobs:
   build-ios:
     name: 🎉 iOS Build
@@ -27,6 +26,15 @@ jobs:
       # Build the iOS app without signing
       - run: flutter build ios --release --no-codesign
 
+      # Manually create the archive
+      - run: |
+          xcodebuild archive \
+            -workspace ios/Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -archivePath build/ios/iphoneos/Runner.xcarchive \
+            -allowProvisioningUpdates
+
       # Create the .ipa file without signing
       - name: Create .ipa file
         run: |
@@ -43,5 +51,6 @@ jobs:
           repo_token: ${{ secrets.TOKENN }}
           file: build/ios/ipa/Runner.ipa
           tag: v1.2
+
 
 
