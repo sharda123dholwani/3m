@@ -30,7 +30,8 @@ jobs:
           xcodebuild -exportArchive \
             -archivePath build/ios/iphoneos/Runner.xcarchive \
             -exportPath build/ios/ipa \
-            -exportOptionsPlist ios/ExportOptions.plist
+            -exportOptionsPlist ios/ExportOptions.plist \
+            -allowProvisioningUpdates
 
       # Upload the .ipa file to the release
       - name: Upload binaries to release
