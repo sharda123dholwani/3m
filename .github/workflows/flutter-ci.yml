@@ -1,39 +1,42 @@
-name: Build iOS
+name: iOS-ipa-build
 
 on:
-  push:
-    branches:
-      - test  # Trigger the workflow on push to the main branch
-  pull_request:
-    branches:
-      - main  # Trigger the workflow on PRs to the main branch
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-ios:
+    name: 🎉 iOS Build
     runs-on: macos-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
         with:
-            token: ${{ secrets.TOKENN }}
+          channel: 'stable'
+          architecture: x64
+      - run: flutter pub get
 
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - run: pod repo update
+        working-directory: ios
+
+      - run: flutter build ios --release --no-codesign
+
+      - run: mkdir Payload
+        working-directory: build/ios/iphoneos
+
+      - run: mv Runner.app/ Payload
+        working-directory: build/ios/iphoneos
+
+      - name: Zip output
+        run: zip -qq -r -9 FlutterIpaExport.ipa Payload
+        working-directory: build/ios/iphoneos
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          channel: 'stable'  # You can specify a Flutter version here
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build iOS
-        run: flutter build ios -t lib/main_dev.dart --flavor dev
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ios-build
-          path: build/ios/iphoneos/
-
-
+          repo_token: ${{ secrets.TOKENN }}
+          file: build/ios/iphoneos/FlutterIpaExport.ipa
+          tag: v1.0
+          overwrite: true
+          body: "This is first release"
