@@ -1,8 +1,8 @@
 import 'package:mmm_sheeting_app_ios_flutter/env.dart';
 
 class ApiConstants {
-  static String baseUrl = AppEnvironment.baseUrl;
-  // static String baseUrl='https://usermanagement-test.elorca.com/api';
+  //static String baseUrl = AppEnvironment.baseUrl;
+   static String baseUrl='https://usermanagement-test.elorca.com/api';
   static String feedbackApi = '/analysis';
   static String otpApi = '/otp';
 }
