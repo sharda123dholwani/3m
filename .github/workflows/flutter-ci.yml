@@ -1,7 +1,12 @@
-name: iOS-ipa-build
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - test
+      - prod
+      - dev
+
+name: iOS-ipa-build
 
 jobs:
   build-ios:
