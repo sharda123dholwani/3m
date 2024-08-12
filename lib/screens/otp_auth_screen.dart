@@ -6,7 +6,7 @@ import 'package:mmm_sheeting_app_ios_flutter/Screens/dashboard_screen.dart';
 import 'package:mmm_sheeting_app_ios_flutter/api_service.dart';
 import 'package:mmm_sheeting_app_ios_flutter/constants.dart';
 import 'package:mmm_sheeting_app_ios_flutter/shared_preference.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+// import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../print_text.dart';
 
@@ -78,42 +78,42 @@ class _OTPAuthenticationScreenState extends State<OTPAuthenticationScreen> {
           SizedBox(height: 30.h,width: 428.w,),
           Container(
             margin: EdgeInsets.only(left: 61.w,right: 61.w),
-            child: PinCodeTextField(
-              textStyle: const TextStyle(color: txtColor,),
-              obscuringCharacter: '*',
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              keyboardType: TextInputType.number,
-              obscureText: true,
-              cursorColor: txtColor,
-              appContext: context,
-              length: 4,
-              onChanged: (value) {
-                if (kDebugMode) {
-                  printLine(value);
-                }
-              },
-              //
-              pinTheme: PinTheme(
-                shape: PinCodeFieldShape.box,
-                borderRadius: BorderRadius.circular(2.w),
-                fieldHeight: 50.h,
-                fieldWidth: 35.w,
-                inactiveColor: otpBoxBorder,
-                activeColor: otpBoxBg,
-                selectedColor: otpBoxBorder,
-
-              ),
-              onCompleted: (value) async {
-                int? otp = await LocalStorage().getTempOTP();
-                printLine("otp_auth_screen: otp: $otp");
-                if(value ==  otp.toString()){
-                  isAuth=true;
-                  await ApiService().getAuthToken();
-                } else {
-                  isAuth=false;
-                }
-              },
-            ),
+            // child: PinCodeTextField(
+            //   textStyle: const TextStyle(color: txtColor,),
+            //   obscuringCharacter: '*',
+            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   keyboardType: TextInputType.number,
+            //   obscureText: true,
+            //   cursorColor: txtColor,
+            //   appContext: context,
+            //   length: 4,
+            //   onChanged: (value) {
+            //     if (kDebugMode) {
+            //       printLine(value);
+            //     }
+            //   },
+            //   //
+            //   pinTheme: PinTheme(
+            //     shape: PinCodeFieldShape.box,
+            //     borderRadius: BorderRadius.circular(2.w),
+            //     fieldHeight: 50.h,
+            //     fieldWidth: 35.w,
+            //     inactiveColor: otpBoxBorder,
+            //     activeColor: otpBoxBg,
+            //     selectedColor: otpBoxBorder,
+            //
+            //   ),
+            //   onCompleted: (value) async {
+            //     int? otp = await LocalStorage().getTempOTP();
+            //     printLine("otp_auth_screen: otp: $otp");
+            //     if(value ==  otp.toString()){
+            //       isAuth=true;
+            //       await ApiService().getAuthToken();
+            //     } else {
+            //       isAuth=false;
+            //     }
+            //   },
+            // ),
           ),
           // child: Row(
           //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
