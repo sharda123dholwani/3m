@@ -72,7 +72,7 @@ class DatabaseHelper {
       return await _db.query(feedbackTable,
       where: "status = 1",);
     }
-
+//
   Future<List<Map<String, dynamic>>>  queryAllRowsStatus2() async {
     return await _db.query(feedbackTable,
       where: "status = 2",);
