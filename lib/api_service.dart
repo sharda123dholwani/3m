@@ -25,7 +25,7 @@ class ApiService {
         }),
       );
       printLine("request:${response.request?.url}");
-
+      printLine("status code: ${response.statusCode}");
       printLine("response: ${response.body}");
       printLine("${response.request}");
 
