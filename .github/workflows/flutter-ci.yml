@@ -7,7 +7,6 @@ on:
 
 name: iOS-ipa-build
 
-
 jobs:
   build-ios:
     name: 🎉 iOS Build
@@ -19,38 +18,32 @@ jobs:
         with:
           channel: 'stable'
           architecture: x64
+      - run: flutter pub get
+
 
       - run: pod repo update
         working-directory: ios
 
-      # Build the iOS app without signing
       - run: flutter build ios --release --no-codesign
 
-      # Manually create the archive
-      - run: |
-          xcodebuild archive \
-            -workspace ios/Runner.xcworkspace \
-            -scheme Runner \
-            -configuration Release \
-            -archivePath build/ios/iphoneos/Runner.xcarchive \
-            -allowProvisioningUpdates
+      - run: mkdir Payload
+        working-directory: build/ios/iphoneos
 
-      # Create the .ipa file without signing
-      - name: Create .ipa file
-        run: |
-          xcodebuild -exportArchive \
-            -archivePath build/ios/iphoneos/Runner.xcarchive \
-            -exportPath build/ios/ipa \
-            -exportOptionsPlist ios/ExportOptions.plist \
-            -allowProvisioningUpdates
+      - run: mv Runner.app/ Payload
+        working-directory: build/ios/iphoneos
 
-      # Upload the .ipa file to the release
+      - name: Zip output
+        run: zip -qq -r -9 FlutterIpaExport.ipa Payload
+        working-directory: build/ios/iphoneos
+
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
-          repo_token: ${{ secrets.TOKENN }}
-          file: build/ios/ipa/Runner.ipa
-          tag: v1.2
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/ios/iphoneos/FlutterIpaExport.ipa
+          tag: v1.0
+          overwrite: true
+          body: "This is first release"
 
 
 
