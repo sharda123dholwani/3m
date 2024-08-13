@@ -1,34 +1,76 @@
-name: Build iOS IPA
+name: Build android apk
 on:
   push:
     branches:
       - test
+
 jobs:
-  build_ios:
-    runs-on: macos-latest
+  build:
+    name: Build & Release
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '11'
+          java-version: '12'
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - name: Clean
-        run: flutter clean
-      - name: Get dependencies
-        run: flutter pub get
-      - name: Build iOS
-        run: flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
-      - name: Create IPA
-        run: |
-          cd build/ios/iphoneos
-          mkdir Payload
-          cp -r Runner.app Payload
-          zip -r app.ipa Payload
-      - name: Upload IPA
-        uses: actions/upload-artifact@v3
+          architecture: x64
+
+      - name: Build APK for Test Branch
+        if: github.ref == 'refs/heads/test'
+        run: flutter build apk -t lib/main_dev.dart --flavor dev
+      - name: upload test apk
+        if: github.ref == 'refs/heads/test'
+        uses : actions/upload-artifact@v3
         with:
-          name: iOS-Build
-          path: build/ios/iphoneos/app.ipa
+          name: 3M android test build
+          path: build/app/output/
+      - name: Build APK for Prod Branch
+        if: github.ref == 'refs/heads/prod'
+        run: flutter build apk -t lib/main_prod.dart --flavor prod
+
+      - name: Build APK for Dev Branch
+        if: github.ref == 'refs/heads/dev’
+        run: flutter build apk -t lib/main_dev.dart --flavor dev
+
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/release/*"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.TOKENN }}
+
+#jobs:
+#  build_ios:
+#    runs-on: macos-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: actions/setup-java@v2
+#        with:
+#          distribution: 'zulu'
+#          java-version: '11'
+#      - uses: subosito/flutter-action@v2
+#        with:
+#          channel: 'stable'
+#      - name: Clean
+#        run: flutter clean
+#      - name: Get dependencies
+#        run: flutter pub get
+#      - name: Build iOS
+#        run: flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
+#      - name: Create IPA
+#        run: |
+#          cd build/ios/iphoneos
+#          mkdir Payload
+#          cp -r Runner.app Payload
+#          zip -r app.ipa Payload
+#      - name: Upload IPA
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: iOS-Build
+#          path: build/ios/iphoneos/app.ipa
+
+
