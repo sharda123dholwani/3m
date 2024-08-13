@@ -10,7 +10,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mmm_sheeting_app_ios_flutter/Screens/dashboard_screen.dart';
 import 'package:mmm_sheeting_app_ios_flutter/api_constants.dart';
 import 'package:mmm_sheeting_app_ios_flutter/constants.dart';
-import 'package:mmm_sheeting_app_ios_flutter/Screens/otp_auth_screen.dart';
 import 'package:mmm_sheeting_app_ios_flutter/shared_preference.dart';
 import 'package:url_launcher/url_launcher.dart';
 
