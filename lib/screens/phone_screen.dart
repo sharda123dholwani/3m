@@ -7,7 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mmm_sheeting_app_ios_flutter/Screens/dashboard_screen.dart';
+import 'dashboard_screen.dart';
 import 'package:mmm_sheeting_app_ios_flutter/api_constants.dart';
 import 'package:mmm_sheeting_app_ios_flutter/constants.dart';
 import 'package:mmm_sheeting_app_ios_flutter/shared_preference.dart';

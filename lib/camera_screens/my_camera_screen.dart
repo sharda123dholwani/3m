@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mmm_sheeting_app_ios_flutter/camera_screens/predict_screen.dart';
+import 'predict_screen.dart';
 import 'package:mmm_sheeting_app_ios_flutter/constants.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../Screens/dashboard_screen.dart';
-import '../main.dart';
-import '../print_text.dart';
+import 'package:mmm_sheeting_app_ios_flutter/screens/dashboard_screen.dart';
+import 'package:mmm_sheeting_app_ios_flutter/main.dart';
+import 'package:mmm_sheeting_app_ios_flutter/print_text.dart';
 
 class MyCameraScreen extends StatefulWidget {
 

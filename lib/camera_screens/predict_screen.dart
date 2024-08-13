@@ -11,9 +11,9 @@ import 'package:mmm_sheeting_app_ios_flutter/print_text.dart';
 import 'package:mmm_sheeting_app_ios_flutter/shared_preference.dart';
 import 'package:pytorch_mobile/model.dart';
 import 'package:pytorch_mobile/pytorch_mobile.dart';
-import '../Screens/dashboard_screen.dart';
-import '../api_constants.dart';
-import '../database_helper.dart';
+import 'package:mmm_sheeting_app_ios_flutter/screens/dashboard_screen.dart';
+import 'package:mmm_sheeting_app_ios_flutter/api_constants.dart';
+import 'package:mmm_sheeting_app_ios_flutter/database_helper.dart';
 class PredictScreen extends StatefulWidget {
   const PredictScreen({Key? key,
     required this.croppedFile,
