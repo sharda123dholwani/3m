@@ -20,7 +20,7 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
       - name: Build iOS
-        run: flutter build ipa --release
+        run: flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
       - name: Create IPA
         run: |
           cd build/ios/iphoneos
