@@ -50,10 +50,8 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
       - name: Build Android APK for test branch
-        if: github.ref == 'refs/heads/test'
-        run: flutter build apk -t lib/main_dev.dart --flavor dev
+        run: flutter build apk --release -t lib/main_dev.dart --flavor dev
       - name: Upload test apk APK
-        if: github.ref == 'refs/heads/test'
         uses: actions/upload-artifact@v3
         with:
           name: Android-Build
