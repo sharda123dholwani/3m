@@ -7,6 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mmm_sheeting_app_ios_flutter/Screens/dashboard_screen.dart';
 import 'package:mmm_sheeting_app_ios_flutter/api_constants.dart';
 import 'package:mmm_sheeting_app_ios_flutter/constants.dart';
 import 'package:mmm_sheeting_app_ios_flutter/Screens/otp_auth_screen.dart';
@@ -49,6 +50,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
       });
 
       int? userResponseStatus= await ApiService().getOTP('+$phoneCode${phoneNoController.text}')  ;
+      printLine("user Response phone screen: $userResponseStatus");
       if(userResponseStatus==404){
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(AppConstants.loginUserNotFound),
@@ -62,15 +64,15 @@ class _PhoneScreenState extends State<PhoneScreen> {
       else if(userResponseStatus==200){
         LocalStorage().setCountry(countryName);
         LocalStorage().setAppUsage(dropdownValueAppUsage);
-        ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-          content: Text("OTP sent successfully on  ${phoneNoController.text}"),
+        ScaffoldMessenger.of(context).showSnackBar( const SnackBar(
+          content: Text("logged in successfully!!"),
         ));
 
         Navigator.pushReplacement(context,
           MaterialPageRoute(builder:
               (context) =>
 
-          const OTPAuthenticationScreen()
+          const DashboardScreen()
           ),);
 
         setState(() {
@@ -369,7 +371,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                     login();
           
                   },
-                  child: const Text('Receive OTP'),
+                  child: const Text('Next'),
                 ),
               ),
               SizedBox(height: 29.h,width: 428.w,),

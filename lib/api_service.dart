@@ -37,11 +37,11 @@ class ApiService {
         final jsonBody = json.decode(response.body);
         int userId = (jsonBody['user_id']);
         await LocalStorage().setUserId(userId);
-        await LocalStorage().setLoggedIn(false);
-        print("api_services:getOTP:${jsonBody['otp']}");
-        await LocalStorage().setTempOTP(jsonBody['otp']);
-        printLine ("${jsonBody['otp']}"
-        );
+        await LocalStorage().setLoggedIn(true);
+        // print("api_services:getOTP:${jsonBody['otp']}");
+        // await LocalStorage().setTempOTP(jsonBody['otp']);
+        // printLine ("${jsonBody['otp']}"
+        // );
         await LocalStorage().setMobileNo(jsonBody['mobile']);
         return response.statusCode;
       }
