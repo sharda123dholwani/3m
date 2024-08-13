@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:in_app_update/in_app_update.dart';
-import 'package:mmm_sheeting_app_ios_flutter/Screens/dashboard_screen.dart';
-import 'package:mmm_sheeting_app_ios_flutter/screens/phone_screen.dart';
+import 'dashboard_screen.dart';
+import 'phone_screen.dart';
 import 'package:mmm_sheeting_app_ios_flutter/shared_preference.dart';
 
 import '../constants.dart';
